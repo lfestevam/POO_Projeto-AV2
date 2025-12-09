@@ -25,27 +25,22 @@ public class Conta {
     };
     
     
-    //função que mostrar o resumo das transaoes da conta escolhida.
-    public void mostrarResumo() {
-        System.out.println("=== RESUMO DA CONTA ===");
-        System.out.println("Nome: " + nome);
-        System.out.println("Número da Conta: " + numeroConta);
-        System.out.println("Saldo Atual: R$ " + saldo);
-
-        System.out.println("\n--- Histórico de Transações ---");
-
-        if (historico.isEmpty()) {
-            System.out.println("Nenhuma transação realizada.");
-        } else {
-            for (Transacao t : historico) {
-                System.out.println(t);
-            }
-        }
-    };
     
-    
+    //calcula o saldo par atualizar o valor de forma diamica a cada transação ou remoção
+    private double calculaSaldo() {
+        double total = 0;
 
+        for (Transacao t : historico) {//itera pela lista
+            if (t.getTipo().equals("Entrada")) {//verifica se é uma entrada, se for soma valor ao total
+                total += t.getValor();
+            } else {
+                total -= t.getValor();//se n for remove valor do total
+            };
+        };
+        return saldo = total;//atualiza o saldo da conta
+    }
     
+ 
     //função para receber o valor e categoria da entrada e adicionar a conta
     public void entrarValor(double valor, Categoria.Entrada categoria) { 
     	saldo += valor;//adicona o sdaldo reescrevendo o valor de 0 inicial do construtor
@@ -56,16 +51,43 @@ public class Conta {
     //função de saida de valor + categoria da saida, com verificação de erro para previnir saida de saldo negativvo inexistente
     public void  saidaValor(double valor, Categoria.Saida categoria ) { 
         if(valor <= saldo) {
-            saldo -= valor;//remove o saldo reescrevendo o valor de 0 inicial do construtor
+            saldo -= valor;//remove o saldo solicitado caso saldo escolhido seja menor que existente em conta.
             historico.add(new Transacao("Saída", valor, categoria));
             System.out.println("Saída registrada: R$ " + valor + " - " + categoria);
         } else {
             System.out.println("Saldo insuficiente, não foi possivel retirar valor da conta!");
-            
-            return;
         };
     };
     
+    //Aplicação de LIFO para a lista de transações removendo as ultimas transações feitas
+    public void reverterTransacao() {
+    	//verifica se a lista é vazia
+        if (historico.isEmpty()) {
+            System.out.println("Nenhuma transação registrada!");
+            return;
+        };
+        //remove a tranç]ao da lista
+        historico.remove(historico.size() - 1);
+        System.out.println("Última transação desfeita!");
+    };
+
+  //função que mostrar o resumo das transaoes da conta escolhida.
+    public void mostrarResumo() {
+        System.out.println("=== RESUMO DA CONTA ===");
+        System.out.println("Nome: " + nome);
+        System.out.println("Número da Conta: " + numeroConta);
+        System.out.println("Saldo Atual: R$ " + calculaSaldo());
+
+        System.out.println("\n--- Histórico de Transações ---");
+
+        if (historico.isEmpty()) {
+            System.out.println("Nenhuma transação realizada.");
+        } else {
+            for (Transacao t : historico) {
+                System.out.println(t);
+            };
+        };
+    };
     
     
     //utilizado para pegar o numero da conta

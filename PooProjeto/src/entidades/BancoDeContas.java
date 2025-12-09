@@ -4,8 +4,9 @@ import java.util.HashMap;
 public class BancoDeContas {
 	//Armazena as contas: eescolhemos hashmap para facilitar a busca, já que da para pegar o valor pela key, sem precisar rodar a lista toda.
 	
-    private HashMap<Integer, Conta> contas = new HashMap<>(); //ESTRUTURA DE ARMAZENAMETO DE DADOS, SALVE PROF !!
-
+    private HashMap<Integer, Conta> contas = new HashMap<>();
+     
+    
     // Criar uma nova conta e adicionar ao banco
     public Conta criarConta(String nome) {
         Conta novaConta = new Conta(nome);

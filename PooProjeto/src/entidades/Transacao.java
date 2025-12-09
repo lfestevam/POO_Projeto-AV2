@@ -15,6 +15,13 @@ public class Transacao {
         this.categoria = categoria;
     }
     
+    public double getValor() {
+    	return valor;
+    };
+    
+    public Object getTipo() {
+    	return tipo;
+    };
     //sobreescrevemos o metodo toString() para formatar a saida.
     @Override
     public String toString() {

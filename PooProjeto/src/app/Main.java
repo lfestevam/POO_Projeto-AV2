@@ -17,13 +17,12 @@ import categorias.Categoria;
 import entidades.*;
 
 public class Main {
-	//TERMINAR D ECOMENTAR O CODIGO AMANHA, FAZER AS IMPLEMENTAÇÕES QUE FALTAM, E TRATAMENTO DE ERROS
 	public static void main(String[] args) {
 
 		// Recebe dados do ususario
 		Scanner sc = new Scanner(System.in);
 
-		// Armazena as contas na lista
+		// Cria o novo banco de contas
 		BancoDeContas banco = new BancoDeContas();
 
 		
@@ -35,6 +34,7 @@ public class Main {
 			System.out.println("3 - Registrar entrada");
 			System.out.println("4 - Registrar saida");
 			System.out.println("5 - Resumo da conta");
+			System.out.println("6 - Reverter transação");
 			System.out.println("0 - Sair");
 			System.out.print("Escolha: ");
 
@@ -61,7 +61,8 @@ public class Main {
 					
 					//procura a conta indicada pelo numero recebido no hasmap
 				case 2:
-					int numeroBusca = lerNumeroConta(sc);//função feita para receber o numero da conta e realizar as pesquisas no banco sem precisar fica repetindo o codigo, visto que em todas as funções será necessario realizar a busca para fazer alterações na conta.
+					int numeroBusca = lerNumeroConta(sc);//função feita para receber o numero da conta e realizar as pesquisas no banco sem precisar fica repetindo o codigo, visto que em todas as 
+					//funções será necessario realizar a busca para fazer alterações na conta.
 
 					Conta contaBuscada = banco.buscarConta(numeroBusca);//realiza a busca no banco e armazena numa variavel para ficar mais legivel
 
@@ -172,6 +173,15 @@ public class Main {
 					        contaResumo.mostrarResumo();//chama o metodo que mostra o resumo para conta que foi buscada
 					    }
 					    break;
+					    
+					    
+				case 6:
+					int numeroConta = lerNumeroConta(sc);
+					
+					Conta excluirTransacao = banco.buscarConta(numeroConta);
+					
+					excluirTransacao.reverterTransacao();
+					
 				};
 			};
 
